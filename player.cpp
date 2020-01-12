@@ -320,12 +320,12 @@ std::pair<int, int> Player::attackAgain()
         int cnt=0;
         for(int i=0;i<12;i++)
         {
-            if(cnt + possibleAttackCounter[i] >= pos)
+            cnt+=possibleAttackCounter[i];
+            if(cnt >= pos)
             {
-                cnt = cnt + possibleAttackCounter[i] - pos;
+                cnt = cnt - pos;
                 return makeAttack(i, cnt);
             }
-            cnt+=possibleAttackCounter[i];
         }
     }
     // jezeli wykonalismy juz jakies bicie to musimy je kontynuowac 
@@ -446,8 +446,6 @@ std::pair<int,int> Player::MoveFromTo(int x,int y, int dx, int dy)
 
         return std::make_pair(x+y*8, x+2*dx + (y+2*dy)*8);
     }
-
-    return std::make_pair(-1,-1);
 }
 
 std::pair<int,int> Player::makeMove(int idx, int cnt)
@@ -484,12 +482,12 @@ std::pair<int,int> Player::move()
     int cnt=0;
     for(int i=0;i<12;i++)
     {
-        if(cnt + possibleMovesCounter[i] >= pos)
+        cnt+=possibleMovesCounter[i];
+        if(cnt >= pos)
         {
-            cnt = cnt + possibleMovesCounter[i] - pos;
+            cnt = cnt - pos;
             return makeMove(i, cnt);
         }
-        cnt+=possibleMovesCounter[i];
     }
 }
 
